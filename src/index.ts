@@ -29,7 +29,7 @@ tcpServer.listen(TCP_PORT, () => {
 });
 
 const req = http.request({
-    hostname: 'https://simconnectivity.qasar.app/api/v1/connectivity/sms',
+    hostname: 'simconnectivity.qasar.app/api/v1/connectivity/sms',
     port: 2000,
     path: '/',
     method: 'POST', 
