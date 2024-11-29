@@ -9,11 +9,6 @@ let connections: Socket[] = [];
 const deviceManager = createServer((socket: Socket) => {
   console.log('New conection established. IP: ', socket.remoteAddress);
 
-  setInterval(() => {
-    const packet = Buffer.from([0x00, 0x0A, 0x6C, 0x73, 0x65, 0x74, 0x69, 0x6F, 0x20, 0x32, 0x2C, 0x31, 0x71, 0xDE]);
-    socket.write(packet);
-  }, 60000);
-
   socket.on('close', () => {
     console.log('Conection terminated');
     connections = connections.filter((s) => { return s !== socket });

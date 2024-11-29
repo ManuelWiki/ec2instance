@@ -30,4 +30,8 @@ export class SetcfgPacket extends DevicePacket {
     constructor(buffer: BufferHandler) {
         super(buffer);
     }
+
+    public getResponse(): string {
+        return this.response;
+    }
 }
