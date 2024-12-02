@@ -40,7 +40,6 @@ class ExtendedRecord {
         // read all record parameters
         // 1-Byte parameters
         let how_many = data.readByte();
-        console.log(`${how_many} 1-Byte parameters present`);
         for (let i = 0; i < how_many; i++) {
             const io_id = data.read2Bytes();
             this[io_id] = data.readByte();
@@ -48,28 +47,24 @@ class ExtendedRecord {
         }
         // 2-Byte parameters
         how_many = data.readByte();
-        console.log(`${how_many} 2-Byte parameters present`);
         for (let i = 0; i < how_many; i++) {
             const io_id = data.read2Bytes();
             this[io_id] = data.read2Bytes();
         }
         // 4-Byte parameters
         how_many = data.readByte();
-        console.log(`${how_many} 4-Byte parameters present`);
         for (let i = 0; i < how_many; i++) {
             const io_id = data.read2Bytes();
             this[io_id] = data.read4Bytes();
         }
         // 8-Byte parameters
         how_many = data.readByte();
-        console.log(`${how_many} 8-Byte parameters present`);
         for (let i = 0; i < how_many; i++) {
             const io_id = data.read2Bytes();
             this[io_id] = data.read8Bytes();
         }
 
         const end = data.getIndex();
-        console.log(`Record has been read. Record's length: ${end - start} bytes`);
     }
 }
 
@@ -84,13 +79,10 @@ export class ExtendedRecordsPacket extends DevicePacket {
 
     protected initPayload(data: BufferHandler): void {
         this.records_left = data.readByte() === 1;
-        // console.log(this.records_left ? 'Records left in flash' : 'No records left in flash');
         this.number_of_records = data.readByte();
-        // console.log(`This packet contains ${this.number_of_records} records`);
         this.records = [];
 
         for (let i = 0; i < this.number_of_records; i++) {
-            // console.log(`Reading record ${i + 1} of ${this.number_of_records}`);
             this.records.push(new ExtendedRecord(data));
         }
     }
