@@ -15,7 +15,7 @@ const deviceManager = createServer((socket: Socket) => {
   })
 
   socket.on('data', (data) => {
-    console.log('Received data from ', socket.remoteAddress, '\n', data);
+    console.log('Received data from ', socket.remoteAddress);
     const packet = decodePacket(data);
 
     if (packet instanceof ExtendedRecordsPacket) {
