@@ -3,6 +3,8 @@ import express from 'express';
 import { encodeGprsSetcfg, SetcfgPacket } from './parser/commands/gprs_setcfg';
 import { decodePacket } from './parser/factory';
 import { ExtendedRecordsPacket, encodeAcknowledgement } from './parser/commands/extended_records';
+import { crc16Rec } from './parser/crc';
+import { fillPacketFields } from './parser/packet_encoder';
 
 let connections: Socket[] = [];
 
