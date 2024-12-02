@@ -3,19 +3,11 @@ import express from 'express';
 import { encodeGprsSetcfg, SetcfgPacket } from './parser/commands/gprs_setcfg';
 import { decodePacket } from './parser/factory';
 import { ExtendedRecordsPacket, encodeAcknowledgement } from './parser/commands/extended_records';
-import { crc16Rec } from './parser/crc';
-import { fillPacketFields } from './parser/packet_encoder';
 
 let connections: Socket[] = [];
 
 const deviceManager = createServer((socket: Socket) => {
   console.log('New conection established. IP: ', socket.remoteAddress);
-
-  setInterval(() => {
-    const packet = Buffer.from([0x00, 0x0A, 0x6C, 0x73, 0x65, 0x74, 0x69, 0x6F, 0x20, 0x32, 0x2C, 0x31, 0x71, 0xDE]);
-    socket.write(packet);
-    console.log('Sent SETIO to ', socket.remoteAddress);
-}, 60000);
 
   socket.on('close', () => {
     console.log('Conection terminated');
@@ -29,7 +21,7 @@ const deviceManager = createServer((socket: Socket) => {
 
     if (packet instanceof ExtendedRecordsPacket) {
       // Handle extended records packet
-      const ack = encodeAcknowledgement(0); // Command 100 with ACK
+      const ack = encodeAcknowledgement(1); // Command 100 with ACK
       socket.write(ack);
     } else if (packet instanceof SetcfgPacket) {
       // Handle setcfg response packet

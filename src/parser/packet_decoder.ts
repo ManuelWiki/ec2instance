@@ -1,5 +1,4 @@
 import { BufferHandler } from "./buffer_handler";
-import { crc16kermit } from "crc";
 
 export abstract class DevicePacket {
     protected length: number;
