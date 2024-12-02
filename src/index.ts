@@ -29,7 +29,7 @@ const deviceManager = createServer((socket: Socket) => {
 
     if (packet instanceof ExtendedRecordsPacket) {
       // Handle extended records packet
-      const ack = encodeAcknowledgement(1); // Command 100 with ACK
+      const ack = encodeAcknowledgement(0); // Command 100 with ACK
       socket.write(ack);
     } else if (packet instanceof SetcfgPacket) {
       // Handle setcfg response packet
